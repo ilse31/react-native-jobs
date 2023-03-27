@@ -7,8 +7,14 @@ import
   icons, SIZES
 } from '../../../constants'
 
+
+const jobTypes = [ "Full Time", "Part Time", "Freelance", "Internship", "Temporary", "Contract" ]
+
 const Welcome = () =>
 {
+  const router = useRouter()
+  const [ search, setSearch ] = useState( "" )
+  const [ activeJobType, setActiveJobType ] = useState( "Full Time" )
   return (
     <View>
       <View style={ styles.container }>
@@ -21,9 +27,44 @@ const Welcome = () =>
           <TextInput
             style={ styles.searchInput }
             placeholder="Search for jobs"
+            value={ search }
+            onChangeText={ setSearch }
           />
         </View>
+        <TouchableOpacity style={ styles.searchBtn } onPress={ () => { } }>
+          <Image
+            source={ icons.search }
+            resizeMode="contain"
+            style={ styles.searchBtnImage }
+          />
+        </TouchableOpacity>
       </View>
+
+
+
+      <View style={ styles.tabsContainer }>
+        <FlatList
+          data={ jobTypes }
+
+          renderItem={ ( { item } ) =>
+          {
+            return (
+              <TouchableOpacity style={ styles.tab( activeJobType, item ) } onPress={ () =>
+              {
+                setActiveJobType( item )
+                router.push( `/search/${ item }` )
+              } }>
+                <Text style={ styles.tabText( activeJobType, item ) }> { item }</Text>
+              </TouchableOpacity>
+            )
+          } }
+          keyExtractor={ ( item ) => item }
+          contentContainerStyle={ { columnGap: SIZES.small } }
+          horizontal
+          showsHorizontalScrollIndicator={ false }
+        />
+      </View>
+
     </View >
   )
 }
