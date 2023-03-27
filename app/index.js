@@ -56,11 +56,9 @@ export default function Home() {
           paddingBottom: SIZES.padding,
         }}
       >
-        <View>
-          <Welcome />
-          <Popularjobs />
-          <Nearbyjobs />
-        </View>
+        <Welcome />
+        <Popularjobs />
+        <Nearbyjobs />
       </ScrollView>
     </SafeAreaView>
   );
